@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="form-box">
+        <form #frm="ngForm" (ngSubmit)="calcularResultado()">  <!-- #frm transforma o form é uma formulario controlado pelo Angular -->
+            <h2>Calculadora</h2>
+            <label for="numero1">Numero 1</label>
+            <input type="number" name="numero1" id="1" [(ngModel)]="numero1">
+
+            <label for="numero2">Numero 2</label>
+            <input type="number" name="numero2" id="2" [(ngModel)]="numero2">
+
+            <button type="submit" >Somar</button> <!--tira o função de botão e transforma em um evento de submit
+            que pode ser acionado com um enter
+            ATENÇÃO TODO O CODIGO HTML SUPORTA APENNAS 1 BOTÃO DE SUBMIT!-->
+            
+        </form>
+
+        <div class="result-display" *ngIf="resultado"> <!-- Metodo 2 de RENDERIZAÇÃO CONDICIONAL
+            Precisa importar a biblioteca Commom Model no .ts
+            Nessa forma de declarar a condição IF não é possivel termo o ELSE-->
+            <p>Seu resultado está abaixo</p>
+        </div>
+
+        @if (resultado) {  <!-- Metodo 1 de fazer a renderização condicional! 
+        Nessa forma de declaração de conficional, é possivel termos o @else -->
+            <div class="result-display">
+                <p>Resultado: <span id="result">{{resultado}}</span></p>
+            </div>
+        }@else {
+            <p>Seu resultado aparecerá aqui.</p>
+        }
+        
+    </div>
+
+</div>
