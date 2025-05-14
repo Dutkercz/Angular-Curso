@@ -1,8 +1,10 @@
 <div class="container">
     <h1>Lista de compras</h1>
-    <form #frm="ngForm" class="add-item" (ngSubmit)="adicionarCompras">
-        <input type="text" id="item" [(ngModel)]="item" placeholder="Digite o nome do item">
+    <form #frm="ngForm" class="add-item" (ngSubmit)="adicionarCompras()">
+        <input type="text" id="item" name="itemName" [(ngModel)]="itemName" placeholder="Digite o nome do item">
         <button type="submit" >Adicionar</button>
+
+        <button type="button" (click)="limparLista()">Limpar Lista</button>
     </form>
 
     <table>
@@ -14,16 +16,39 @@
             </tr>
         </thead>
         <tbody><!--tradução pra lembrar estamos em uma table, então T+BODY = tbody-->
+           
+            @for (item of listaDeItens; track item.id) {
             <tr>
-                <td>1</td>
-                <td>Arroz</td>
-                <td><input type="checkbox"></td>
+                <td> 
+                    {{ item.id }} 
+                </td>
+                <td>
+                    <span 
+                    [ngClass]="{'item-riscado' : item.status}">{{ item.nome }}
+                    </span>
+                </td>
+                <td>
+                    <input type="checkbox" 
+                    (click)="riscarItem(item)" 
+                    [checked]="item.status">
+                </td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Feijão</td>
+            } @empty {
+                <tr>
+                    <td colspan="10"> A sua lista está vazia.</td>
+                </tr>
+
+            }
+            <!--Ou podemos fazer o ngFor (código abaixo) (lembrar de importar o Common Module no component.ts)
+            
+            <tr *ngFor="let item of listaDeItens">
+                <td> {{ item.id }} </td>
+                <td> {{ item.nome }} </td>
                 <td><input type="checkbox"></td>
-            </tr>
+            </tr> -->
+
+            <!--DO MODO QUE ESTÁ A LISTA IRA FICAR DUPLICADA, DEVEMOS ESCOLHER UM DOS METODOS "FOR"-->
+           
         </tbody>
     </table>
 
